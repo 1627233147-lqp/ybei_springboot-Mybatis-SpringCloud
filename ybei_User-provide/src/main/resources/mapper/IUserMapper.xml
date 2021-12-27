@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.panshi.ybei.usermapper.UserMapper">
+
+    <select id="queryUser" resultType="com.panshi.ybei.userbean.UserBean">
+      select * from ybei_user WHERE u_mailbox =#{email}
+
+    </select>
+
+ <insert id="regisinsert" parameterType="com.panshi.ybei.userbean.UserBean">
+   insert  into ybei_user values (ybei_id,#{ybei_userName},#{u_cell_phone_number},#{u_mailbox},null,#{u_gender},1,u_login,u_creation_time
+   ,u_update_timr,#{u_password});
+ </insert>
+
+  <select id="selectUser"  resultType="com.panshi.ybei.userbean.UserBean">
+      select ybei_id,ybei_userName,u_cell_phone_number,u_mailbox,u_head_portrait,u_gender,u_state,u_login,u_creation_time,
+      u_update_timr from ybei_user
+      <where>
+<if test="emali !=null and emali != ''">
+    u_mailbox =#{emali}
+ </if>
+      </where>
+</select>
+
+<select id="login" resultType="com.panshi.ybei.userbean.UserBean">
+ select * from ybei_user where ybei_userName=#{username}
+</select>
+
+    <update id="updateUser" parameterType="com.panshi.ybei.userbean.UserBean">
+      update ybei_user
+      <set>
+      <if test="ybei_userName !=  null and ybei_userName ！='' ">
+          ybei_userName=#{ybei_userName}
+      </if>
+      <if test="u_cell_phone_number != null and u_cell_phone_number != ''">
+          u_cell_phone_number=#{u_cell_phone_number}
+      </if>
+      <if test="u_mailbox !=null and u_mailbox != ''">
+          u_mailbox=#{u_mailbox}
+      </if>
+    </set>
+    <where>
+        ybei_id=#{ybei_id}
+    </where>
+    </update>
+
+    <update id="updateuser" parameterType="com.panshi.ybei.userbean.UserBean">
+        update ybei_user
+        <set>
+
+                u_state=#{state}
+
+        </set>
+        <where>
+            ybei_id=#{id}
+        </where>
+    </update>
+
+</mapper>
