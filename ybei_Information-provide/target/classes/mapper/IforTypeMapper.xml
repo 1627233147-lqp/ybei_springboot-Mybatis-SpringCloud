@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.panshi.ybei.mapper.IforTypeMapper">
+    <select id="query" resultType="com.panshi.ybei.bean.InforBean">
+        select * from ybei_type where type_name=#{name}
+    </select>
+    <select id="selectInfor" resultType="com.panshi.ybei.bean.InforBean">
+        select * from  ybei_type
+        <where>
+            <if test="name!=null and name !=''">
+                type_name=#{name}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertInfor" parameterType="com.panshi.ybei.bean.InforBean">
+        INSERT  INTO ybei_type VAlUES (type_id,#{type_name},#{sort_id},1,now(),now())
+    </insert>
+
+    <update id="updateInfor" parameterType="com.panshi.ybei.bean.InforBean">
+   update ybei_type
+   <set>
+
+           type_name=#{names},
+
+
+           sort_id=#{sort},
+
+
+           state=#{states},
+
+   </set>
+   where type_id=#{ides}
+    </update>
+    <select id="inforselect" resultType="com.panshi.ybei.bean.InforBean">
+        select type_name from ybei_type
+    </select>
+</mapper>

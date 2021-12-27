@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.panshi.ybei.mapper.IMessageMapper">
+<select id="query" resultType="com.panshi.ybei.bean.MessageBean">
+    select * from ybei_type_message_copy where y_headline=#{name}
+</select >
+    <!--
+    article_typem
+    -->
+    <select id="select" resultType="com.panshi.ybei.bean.MessageBean">
+        select y_id,y_serial_number,type_name,y_headline,article_type,content_type,state,self_support,recommend,top
+         ,browse_number,comment_number,collect_number,establish_time,update_time from ybei_type_message_copy
+        <where>
+            <if test="name != null and name !=''">
+                y_headline = #{name}
+
+            </if>
+        </where>
+    </select>
+
+
+   <insert id="insertMess" parameterType="com.panshi.ybei.bean.MessageBean">
+       insert  into  ybei_type_message_copy values (ybei_id,y_serial_number,#{type_name},#{y_headline},#{keyword},#{article_type}
+       ,#{content_type},#{state},now(),#{self_support},#{recommend},#{top},0,0,0,now(),now(),#{brief_introduction},
+       #{content_particulars},#{picture},#{the_content_level},#{source_name},#{url},#{author});
+   </insert>
+
+    <update id="updateMess" parameterType="com.panshi.ybei.bean.MessageBean">
+        update ybei_type_message_copy
+        <set>
+            <if test="type_name!=null and type_name!=''">
+                type_name=#{type_name}
+            </if>
+            <if test="y_headline!=null and y_headline！='' ">
+                y_headline=#{y_headline}
+            </if>
+            <if test="keyword != null and keyword!=''">
+                keyword=#{keyword}
+            </if>
+            <if test="brief_introduction != null and brief_introduction!=''">
+                brief_introduction=#{brief_introduction}
+            </if>
+            <if test="content_particulars!=null and content_particulars!='' ">
+                content_particulars=#{content_particulars}
+            </if>
+            <if test="picture!= null and picture!=''">
+                picture=#{picture}
+            </if>
+            <if test="the_content_level!=null and the_content_level!=''">
+                the_content_level=#{the_content_level}
+            </if>
+            <if test="content_type!= null and content_type!=''">content_type=#{content_type}</if>
+            <if test="self_support!= null and self_support!=''">
+                self_support=#{self_support}
+            </if>
+            <if test="recommend!=null and recommend!=''">
+                recommend=#{recommend}
+            </if>
+            <if test="top!=null and top!=''">
+                top=#{top}
+            </if>
+            <if test="source_name!=null and source_name!=''">
+                source_name=#{source_name}
+            </if>
+            <if test="url!=null and url!=''">
+                url=#{url}
+            </if>
+            <if test="author!=null and author!=''">
+                author=#{author}
+            </if>
+            <if test="state!=null and state!=''">
+                state=#{state}
+            </if>
+        </set>
+    </update>
+</mapper>
